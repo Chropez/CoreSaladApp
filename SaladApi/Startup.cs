@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SaladApi.Repository;
 
 namespace SaladApi
 {
@@ -29,6 +27,7 @@ namespace SaladApi
         {
             // Add framework services.
             services.AddMvc();
+            services.AddDbContext<SaladApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +37,8 @@ namespace SaladApi
             loggerFactory.AddDebug();
 
             app.UseMvc();
+
+            SeedData.Initialize(app.ApplicationServices);
         }
     }
 }
