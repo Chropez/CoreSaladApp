@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using SaladApi.Models;
 using SaladApi.Repository;
@@ -67,7 +65,7 @@ namespace SaladApi.Controllers
                 _context.SaveChanges();
                 return Ok("Salad deleted");
             }
-
+                        
             return BadRequest($"Salad with Id: {id} was not found");
         }
     }
