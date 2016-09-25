@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SaladApi.Repository;
+using AutoMapper;
+using SaladApi.ViewModels;
+using SaladApi.Models;
 
 namespace SaladApi
 {
@@ -25,20 +28,34 @@ namespace SaladApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(Configuration);
+            
             // Add framework services.
             services.AddMvc();
-            services.AddDbContext<SaladApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
+            // Db
+            services.AddDbContext<SaladApiDbContext>();
+            services.AddTransient<SeedData>();         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, SeedData Seeder)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             app.UseMvc();
 
-            SeedData.Initialize(app.ApplicationServices);
+            Seeder.Seed();
+            
+            InitializeAutoMapper();
+        }
+
+        private void InitializeAutoMapper()
+        {
+            Mapper.Initialize(
+                config => config.CreateMap<OrderViewModel, Order>()
+            );
         }
     }
 }

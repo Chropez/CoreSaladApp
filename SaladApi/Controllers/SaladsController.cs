@@ -6,11 +6,11 @@ using SaladApi.Repository;
 namespace SaladApi.Controllers
 {
     [Route("api/[controller]")]
-    public class saladsController : Controller
+    public class SaladsController : Controller
     {
         private readonly SaladApiDbContext _context;
 
-        public saladsController(SaladApiDbContext context) 
+        public SaladsController(SaladApiDbContext context) 
         {
             _context = context;
         }

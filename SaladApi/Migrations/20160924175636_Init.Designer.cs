@@ -8,8 +8,8 @@ using SaladApi.Repository;
 namespace SaladApi.Migrations
 {
     [DbContext(typeof(SaladApiDbContext))]
-    [Migration("20160922184203_init")]
-    partial class init
+    [Migration("20160924175636_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,6 +25,8 @@ namespace SaladApi.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<int>("Size");
+
                     b.HasKey("Id");
 
                     b.ToTable("Drinks");
@@ -37,13 +39,15 @@ namespace SaladApi.Migrations
 
                     b.Property<string>("Comment");
 
+                    b.Property<bool>("Delivered");
+
                     b.Property<int?>("DrinkId")
                         .IsRequired();
 
                     b.Property<int?>("SaladId")
                         .IsRequired();
 
-                    b.Property<string>("UserName")
+                    b.Property<int?>("UserId")
                         .IsRequired();
 
                     b.HasKey("Id");
@@ -51,6 +55,8 @@ namespace SaladApi.Migrations
                     b.HasIndex("DrinkId");
 
                     b.HasIndex("SaladId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -66,9 +72,25 @@ namespace SaladApi.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<int>("Price");
+
+                    b.Property<int>("Type");
+
                     b.HasKey("Id");
 
                     b.ToTable("Salads");
+                });
+
+            modelBuilder.Entity("SaladApi.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("SaladApi.Models.Order", b =>
@@ -81,6 +103,11 @@ namespace SaladApi.Migrations
                     b.HasOne("SaladApi.Models.Salad", "Salad")
                         .WithMany()
                         .HasForeignKey("SaladId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SaladApi.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }
