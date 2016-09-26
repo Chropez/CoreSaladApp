@@ -1,11 +1,10 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SaladApi.Repository;
 using AutoMapper;
+using SaladApi.Repositories;
 using SaladApi.ViewModels;
 using SaladApi.Models;
 
@@ -35,7 +34,10 @@ namespace SaladApi
             
             // Db
             services.AddDbContext<SaladApiDbContext>();
-            services.AddTransient<SeedData>();         
+            services.AddTransient<SeedData>();
+
+            // Services
+            services.AddScoped<IOrderRepository, OrderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +56,10 @@ namespace SaladApi
         private void InitializeAutoMapper()
         {
             Mapper.Initialize(
-                config => config.CreateMap<OrderViewModel, Order>()
+                config => {
+                    config.CreateMap<OrderViewModel, Order>();
+                    config.CreateMap<Order, Order>();
+                }
             );
         }
     }

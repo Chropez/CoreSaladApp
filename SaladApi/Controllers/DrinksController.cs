@@ -1,7 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SaladApi.Models;
-using SaladApi.Repository;
+using SaladApi.Repositories;
 
 namespace SaladApi.Controllers
 {

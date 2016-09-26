@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SaladApi.Models;
 
-namespace SaladApi.Repository
+namespace SaladApi.Repositories
 {
     public class SaladApiDbContext : DbContext
     {

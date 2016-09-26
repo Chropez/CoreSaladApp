@@ -1,14 +1,11 @@
-using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using SaladApi.Models;
 
-namespace SaladApi.Repository
+namespace SaladApi.Repositories
 {
     public class SeedData
     {
-        private SaladApiDbContext _context;
+        private readonly SaladApiDbContext _context;
 
         public SeedData (SaladApiDbContext context)
         {
