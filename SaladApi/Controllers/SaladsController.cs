@@ -18,25 +18,9 @@ namespace SaladApi.Controllers
 
         // GET api/salads
         [HttpGet]
-        public IActionResult Get([FromQuery] string sort, [FromQuery] SaladTypes? type)
+        public IActionResult Get()
         {
-            IEnumerable<Salad> salads;
-
-            if (type != null)
-            {
-                salads = _context.Salads.Where(s => s.Type == type).ToList();
-            } else {
-                salads = _context.Salads.ToList();
-            }
-            
-            if (sort != null)
-            {
-                if (sort == "price" )
-                    salads = salads.OrderBy(s => s.Price).ToList();
-                else if (sort == "-price")
-                    salads = salads.OrderByDescending(s => s.Price).ToList();
-            }
-            return Ok(salads);
+            return Ok(_context.Salads.ToList());
         }
 
         // GET api/salads/5
@@ -46,44 +30,41 @@ namespace SaladApi.Controllers
             return Ok(_context.Salads.FirstOrDefault(s => s.Id == id));
         }
 
-        // POST api/salads
-        [HttpPost]
-        public IActionResult Post([FromBody] Salad salad)
-        {
-            if (ModelState.IsValid) {
-                _context.Salads.Add(salad);
-                _context.SaveChanges();
-                return Created($"api/salads/{salad.Id}", salad);
-            }
-            return BadRequest(ModelState);
-        }
 
-        // PUT api/salads/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Salad updatedSalad)
-        {
-             if (ModelState.IsValid) {
-                 var salad = _context.Salads.First(s => s.Id == id);
-                 salad.Name = updatedSalad.Name;
-                 salad.Ingredients = updatedSalad.Ingredients;
-                 _context.SaveChanges();
-                 return Ok(salad);
-             }
-             return BadRequest(ModelState);
-        }
+         /**
+         Tips från coachen!
+         
+         Tip 1
+         Om man vill läsa in ett jsonobjekt som man skickar från klienten
+         och automatiskt binda det till en modell
+         så kan man använda [FromBody] attributet
+         
+         t.ex så kan Json-objektet 
+          
+         { 
+             "id" : 1, 
+             "name" : "7up", 
+             "size": 33 
+         }
 
-        // DELETE api/salads/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var salad = _context.Salads.FirstOrDefault(s => s.Id == id);
-            if(salad != null) {
-                _context.Remove(salad);
-                _context.SaveChanges();
-                return Ok("Salad deleted");
-            }
-                        
-            return BadRequest($"Salad with Id: {id} was not found");
-        }
+         bindas till en Drink med: 
+         public IActionResult ParseFromObject([FromBody] Drink drink)
+         drink.Name == "7up"; // true
+
+         Tip2
+         Vissa frågor löses bäst genom att man skickar in Query-parameters i URLen!
+         De kan man läsa in med [FromQuery] attributet
+
+         Om man skickar till urlen api/pizzas?rank=1
+
+         så kan man få ut rank på följande sätt
+
+         public IActionResult ParseFromQueryParameters([FromQuery] int rank)
+
+         */ 
+         
+         
+         
+         
     }
 }

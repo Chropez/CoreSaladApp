@@ -37,7 +37,8 @@ namespace SaladApi
             services.AddTransient<SeedData>();
 
             // Services
-            services.AddScoped<IOrderRepository, OrderRepository>();
+            // Inject services here
+            // services.AddScoped<IOrderRepository, OrderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
