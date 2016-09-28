@@ -55,12 +55,7 @@ namespace SaladApi
 
         private void InitializeAutoMapper()
         {
-            Mapper.Initialize(
-                config => {
-                    config.CreateMap<OrderViewModel, Order>();
-                    config.CreateMap<Order, Order>();
-                }
-            );
+            
         }
     }
 }
