@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using SaladApi.Repositories;
-using SaladApi.ViewModels;
 using SaladApi.Models;
 
 namespace SaladApi
