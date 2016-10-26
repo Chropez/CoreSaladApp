@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SaladApi.Migrations
 {
-    public partial class Init : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,7 +45,9 @@ namespace SaladApi.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: false),
+                    Username = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,9 +62,9 @@ namespace SaladApi.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Comment = table.Column<string>(nullable: true),
                     Delivered = table.Column<bool>(nullable: false),
-                    DrinkId = table.Column<int>(nullable: false),
-                    SaladId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    DrinkId = table.Column<int>(nullable: true),
+                    SaladId = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,19 +74,19 @@ namespace SaladApi.Migrations
                         column: x => x.DrinkId,
                         principalTable: "Drinks",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_Salads_SaladId",
                         column: x => x.SaladId,
                         principalTable: "Salads",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

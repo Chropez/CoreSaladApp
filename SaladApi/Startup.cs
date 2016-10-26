@@ -7,6 +7,7 @@ using AutoMapper;
 using SaladApi.Repositories;
 using SaladApi.ViewModels;
 using SaladApi.Models;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace SaladApi
 {
@@ -31,6 +32,7 @@ namespace SaladApi
             
             // Add framework services.
             services.AddMvc();
+            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
             
             // Db
             services.AddDbContext<SaladApiDbContext>();
@@ -46,6 +48,7 @@ namespace SaladApi
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseCors("AllowAll");
             app.UseMvc();
 
             Seeder.Seed();
