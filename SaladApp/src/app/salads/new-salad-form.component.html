@@ -1,0 +1,27 @@
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate >
+  <form-input
+    label="Namn"
+    [formControl]="form.controls.name"
+    [(ngModel)]="model.name"
+    [errorMessages]="errorMessages.name">
+  </form-input>
+  <form-textarea
+    label="Ingredienser"
+    [formControl]="form.controls.ingredients"
+    [(ngModel)]="model.ingredients"
+    [errorMessages]="errorMessages.ingredients">
+  </form-textarea>
+  <form-select
+    label="Typ av sallad"
+    [formControl]="form.controls.saladType"
+    [(ngModel)]="model.saladType"
+    [options]="saladTypeOptions"
+    [errorMessages]="errorMessages.saladType">
+  </form-select>
+  <form-input
+    label="Pris"
+    [formControl]="form.controls.price"
+    [(ngModel)]="model.price"
+    type="number">
+  </form-input>
+</form>

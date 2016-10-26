@@ -1,0 +1,27 @@
+<h3 class="page__title">Salads</h3>
+<ul class="list-group">
+  <li *ngFor="let salad of salads" class="list-group-item">
+    <div class="image">
+      <img *ngIf="salad.type===0" src="assets/img/salad-icon.png" alt="">
+      <img *ngIf="salad.type===1" src="assets/img/pasta-icon.png" alt="">
+    </div>
+    <div class="content">
+      <div class="primary">{{salad.name}}</div>
+      <div class="secondary">
+        <span *ngIf="salad.type===0">Grön sallad - </span>
+        <span *ngIf="salad.type===1">Pasta sallad - </span>
+        {{salad.ingredients}}
+      </div>
+    </div>
+  </li>
+</ul>
+
+<new-salad
+  [show]="showAddNewSalad"
+  (onHide)="toggleShowNewSalad(false)"
+  (onAddSalad)="addNewSalad()">
+</new-salad>
+
+<button (click)="toggleShowNewSalad(true)" class="btn btn-danger btn--fab btn__add-salad" >
+  <span class="btn--fab-icon-text">+</span>
+</button>

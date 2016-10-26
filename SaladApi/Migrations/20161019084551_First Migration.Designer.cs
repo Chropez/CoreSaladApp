@@ -8,8 +8,8 @@ using SaladApi.Repositories;
 namespace SaladApi.Migrations
 {
     [DbContext(typeof(SaladApiDbContext))]
-    [Migration("20160924175636_Init")]
-    partial class Init
+    [Migration("20161019084551_First Migration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,14 +41,11 @@ namespace SaladApi.Migrations
 
                     b.Property<bool>("Delivered");
 
-                    b.Property<int?>("DrinkId")
-                        .IsRequired();
+                    b.Property<int?>("DrinkId");
 
-                    b.Property<int?>("SaladId")
-                        .IsRequired();
+                    b.Property<int?>("SaladId");
 
-                    b.Property<int?>("UserId")
-                        .IsRequired();
+                    b.Property<int?>("UserId");
 
                     b.HasKey("Id");
 
@@ -88,6 +85,12 @@ namespace SaladApi.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("Password")
+                        .IsRequired();
+
+                    b.Property<string>("Username")
+                        .IsRequired();
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -97,18 +100,15 @@ namespace SaladApi.Migrations
                 {
                     b.HasOne("SaladApi.Models.Drink", "Drink")
                         .WithMany()
-                        .HasForeignKey("DrinkId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DrinkId");
 
                     b.HasOne("SaladApi.Models.Salad", "Salad")
                         .WithMany()
-                        .HasForeignKey("SaladId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SaladId");
 
                     b.HasOne("SaladApi.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
         }
     }

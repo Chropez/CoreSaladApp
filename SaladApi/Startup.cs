@@ -5,7 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using SaladApi.Repositories;
+using SaladApi.ViewModels;
 using SaladApi.Models;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace SaladApi
 {
@@ -30,14 +32,14 @@ namespace SaladApi
             
             // Add framework services.
             services.AddMvc();
+            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
             
             // Db
             services.AddDbContext<SaladApiDbContext>();
             services.AddTransient<SeedData>();
 
             // Services
-            // Inject services here
-            // services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +48,7 @@ namespace SaladApi
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseCors("AllowAll");
             app.UseMvc();
 
             Seeder.Seed();
@@ -55,7 +58,12 @@ namespace SaladApi
 
         private void InitializeAutoMapper()
         {
-            
+            Mapper.Initialize(
+                config => {
+                    config.CreateMap<OrderViewModel, Order>();
+                    config.CreateMap<Order, Order>();
+                }
+            );
         }
     }
 }

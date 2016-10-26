@@ -96,19 +96,27 @@ namespace SaladApi.Repositories
             _context.Users.AddRange(
                 new User 
                 {
-                    Name = "Håkan"
+                    Name = "Håkan",
+                    Username = "hakan",
+                    Password = "asd"
                 },
                 new User 
                 {
-                    Name = "Tomas"
+                    Name = "Tomas",
+                    Username = "tomas",
+                    Password = "asd"
                 },
                 new User 
                 {
-                    Name = "Alfred"
+                    Name = "Alfred",
+                    Username = "alfred",
+                    Password = "asd"
                 },
                 new User 
                 {
-                    Name = "Eduardo García de la Vega"
+                    Name = "Eduardo García de la Vega",
+                    Username = "eduardo",
+                    Password = "asd"
                 }
             );
             _context.SaveChanges();

@@ -1,0 +1,12 @@
+<sa-modal [showModal]="show" (onClose)="closeNewSaladModal()">
+  <sa-modal-header>
+    <h4 class="modal-title" id="myModalLabel">Ny Salad</h4>
+  </sa-modal-header>
+  <sa-modal-body>
+    <new-salad-form #saladForm (onSubmit)="onSubmitForm()"></new-salad-form>
+  </sa-modal-body>
+  <sa-modal-footer>
+    <button type="button" class="btn btn-link" (click)="closeNewSaladModal()">Avbryt</button>
+    <button (click)="submitForm()" type="button" class="btn btn-primary">Lägg till</button>
+  </sa-modal-footer>
+</sa-modal>

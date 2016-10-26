@@ -1,0 +1,18 @@
+<div  class="form-group"
+  [ngClass]="{
+    'has-success': isValid,
+    'has-error': isInvalid,
+    'has-feedback': hasFeedback
+  }"
+  >
+  <label class="control-label">{{label}} <span *ngIf="isRequired">*</span></label>
+  <div class="control-input">
+    <ng-content></ng-content>
+  </div>
+  <span *ngIf="isValid" class="glyphicon glyphicon-ok form-control-feedback"></span>
+  <span *ngIf="isInvalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+  <div *ngIf="isInvalid" class="help-block">
+    <!--{{isRequiredErrorMessage}}-->
+  </div>
+  {{formControl.value}} | {{formControl.valid}} | {{formControl.pristine}}
+</div>

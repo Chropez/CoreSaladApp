@@ -1,0 +1,37 @@
+.list-group-item {
+  display: flex;
+  margin-bottom: -1px;
+}
+
+.image img{
+  width: 70px;
+}
+
+.content {
+  margin-left: 30px;
+  padding-top: 12px;
+}
+
+.content .primary {
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.btn__add-salad {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.list-group {
+  margin-bottom: 90px;
+}
+
+@media (min-width: 970px) {
+  .btn__add-salad {
+    bottom: 40px;
+    right: 40px;
+  }
+}
+
+

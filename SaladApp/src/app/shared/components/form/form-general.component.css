@@ -1,0 +1,21 @@
+.form-group {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.form-group label {
+  margin-bottom: 0;
+}
+
+input.form-control {
+  height: 30px;
+}
+
+.has-feedback .form-control-feedback {
+  top: 25px;
+  right: -10px;
+}
+
+.control-input {
+  padding-right: 30px;
+}

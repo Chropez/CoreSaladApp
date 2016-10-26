@@ -1,0 +1,12 @@
+<form-general
+  [formControl]="formControl"
+  [label]="label"
+  [errorMessages]="errorMessages">
+    <select class="form-control"
+      [formControl]="formControl"
+      [(ngModel)]="value">
+        <option *ngFor="let option of options" [value]="option.value">
+          {{option.label}}
+        </option>
+    </select>
+</form-general>
